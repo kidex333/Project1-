@@ -54,14 +54,13 @@ public class MainClass {
 						numberOfTickets = read.nextInt();
 						if (numberOfTickets > 0 && numberOfTickets < 11)
 						{
-							
+							System.out.print("Do you want an especific seat? ");
 						}
 						else
 						{
 							System.out.println("The number of tickets inserted is not valid.");
 						}
 					} while (numberOfTickets < 0 || numberOfTickets > 11);
-				
 			}
 		}while (action > 3 || action < 1);
 	}//main
