@@ -1,4 +1,5 @@
 import java.util.*;
+
 /**
  * An object containing 3 different Data Type class variables so we can read 3 different Data Types with the same method.
  */
@@ -38,5 +39,4 @@ public class DataType
 		}		
 		return foo;
 	}
-
 }
