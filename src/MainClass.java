@@ -1,14 +1,21 @@
 public class MainClass {
+	/**
+	 * An enum to select between data types
+	 */
+	public enum Types 
+	{
+		INTEGER, DOUBLE, STRING;
+	}
 	public static void main(String[] args) {
-		int numberOfRows = new DataType().readValue("How many rows are there in the plane?", 0).intVal;
+		int numberOfRows = new DataType().readValue("How many rows are there in the plane?", Types.INTEGER).intVal;
 		boolean[][] seats = new boolean[numberOfRows][4];
-		double priceOfTicket = new DataType().readValue("How much does the one-way ticket costs?", 1).doubleVal;
+		double priceOfTicket = new DataType().readValue("How much does the one-way ticket costs?", Types.DOUBLE).doubleVal;
 		boolean var = false;
 		do
 		{
 			printSArray(new String[] {"What do you want to do?", "1: Buy tickets", "2: Check",
 					"3: Cancel tickets", "4: Exit the program"});			
-			int action = new DataType().readValue("", 0).intVal;
+			int action = new DataType().readValue("", Types.INTEGER).intVal;
 			switch (action){
 				case 1: buyTicket(seats, priceOfTicket);
 					break;
@@ -61,7 +68,7 @@ public class MainClass {
 		do
 		{
 			String digits = "", letters = "";
-			String seat = new DataType().readValue("Insert the number of the seat (1 - " + inNumberOfRows + ") (A - D)", 4).litValue.toUpperCase();
+			String seat = new DataType().readValue("Insert the number of the seat (1 - " + inNumberOfRows + ") (A - D)", Types.STRING).litValue.toUpperCase();
 			for (char bar : seat.toCharArray())
 			{
 				if ((int) bar > 47 && (int) bar < 57)
@@ -123,7 +130,7 @@ public class MainClass {
 		int numberOfTickets = countArray(inSeats, false);
 		do
 		{			
-			tickets = new DataType().readValue("How many tickets do you want to buy?", 0).intVal;			
+			tickets = new DataType().readValue("How many tickets do you want to buy?", Types.INTEGER).intVal;			
 			if (tickets > 10 || tickets < 0 || tickets > numberOfTickets)
 			{
 				System.out.println("The number of tickets entered is not valid");
@@ -146,7 +153,7 @@ public class MainClass {
 						double price = askConfirmation("Do you want to buy a return ticket?") ? inPriceOfTicket*1.5 : inPriceOfTicket;
 						int luggage = 0;
 						if (askConfirmation("Will you carry any luggage?"))
-							luggage = new DataType().readValue("How many will you carry?", 0).intVal;
+							luggage = new DataType().readValue("How many will you carry?", Types.INTEGER).intVal;
 						finalprice += price + (luggage*15);
 						inSeats[seat[0]][seat[1]] = true;
 						count--;
@@ -154,7 +161,7 @@ public class MainClass {
 					
 				}
 				finalprice = discount ? finalprice * 0.92 : finalprice;
-				System.out.println("The final price is " + finalprice + "\n");
+				System.out.println("\n" + "The final price is " + finalprice + "\n");
 			}			
 		}while (tickets < 0 || tickets > 10 || tickets > numberOfTickets);		
 	}
@@ -193,7 +200,7 @@ public class MainClass {
 	 */
 	static boolean askConfirmation(String prompt)
 	{
-		String confirmation = new DataType().readValue(prompt, 4).litValue.toLowerCase();
+		String confirmation = new DataType().readValue(prompt, Types.STRING).litValue.toLowerCase();
 		return confirmation.equals("yes") || confirmation.equals("y") ? true : false;		
 	}
 	/**

@@ -22,19 +22,19 @@ public class DataType
 	/**
 	 * Method to read a value and store it in a specified Data Type.
 	 * @param prompt The text to be printed when asking for the value.
-	 * @param selection The Data Type desired, 0 for int, 1 for double, anything else for String.
+	 * @param selection The Data Type desired, referred to the enumeration Types.
 	 * @return A DataType object containing the value readed.
 	 */
-	public DataType readValue(String prompt, int selection)
+	public DataType readValue(String prompt, MainClass.Types type)
 	{
 		DataType foo = new DataType();
 		System.out.print(prompt + " ");
-		switch (selection){
-			case 0:	foo.intVal = read.nextInt();
+		switch (type){
+			case INTEGER: foo.intVal = read.nextInt();
 			break;
-			case 1: foo.doubleVal = read.nextDouble();
+			case DOUBLE: foo.doubleVal = read.nextDouble();
 			break;
-			default: foo.litValue = read.next();
+			case STRING: foo.litValue = read.next();
 			break;				
 		}		
 		return foo;
