@@ -73,7 +73,7 @@ public class MainClass {
 		do
 		{
 			String digits = "", letters = "";
-			String seat = ((String) readValue("Insert the number of the seat (1 - " + inNumberOfRows + ") (A - D)", Types.STRING)).toUpperCase();
+			String seat = ((String) readValue("Insert the number of the seat (1 - " + inNumberOfRows + ") (A - D):", Types.STRING)).toUpperCase();
 			for (char bar : seat.toCharArray())
 			{
 				if ((int) bar > 47 && (int) bar < 58)
@@ -152,7 +152,7 @@ public class MainClass {
 			int tickets = 0;
 			int numberOfSeats = countArray(inSeats, false);
 			do
-			{			
+			{
 				tickets = (Integer) readValue("How many tickets do you want to buy?", Types.INTEGER);			
 				if (tickets > 10 || tickets < 0 || tickets > numberOfSeats)
 				{
@@ -163,7 +163,8 @@ public class MainClass {
 					boolean discount = tickets >= 6;
 					int count = tickets;
 					while (count > 0)
-					{						
+					{
+						System.out.println("\n" + "Ticket " + (tickets - count + 1));
 						printArray(inSeats);
 						int[] seat = askSeat(inSeats.length);
 						if (inSeats[seat[0]][seat[1]])
@@ -183,7 +184,7 @@ public class MainClass {
 						
 					}
 					finalprice = discount ? finalprice * 0.92 : finalprice;
-					System.out.println("\n" + "The final price is " + finalprice + "\n");
+					System.out.println("\n" + "The final price is " + finalprice + "€" + "\n");
 				}			
 			}while (tickets < 0 || tickets > 10 || tickets > numberOfSeats);
 		}
@@ -245,7 +246,7 @@ public class MainClass {
 		return count;
 	}	
 	/**
-	 * A method to read a value of aspecific data type.
+	 * A method to read a value of a specific data type.
 	 * @param prompt The text to be printed before reading the data.
 	 * @param type The type of data to be readed.
 	 * @return The object containing the data readed.
@@ -261,8 +262,9 @@ public class MainClass {
 			case DOUBLE: result = read.nextDouble();
 			break;
 			case STRING: result = read.next();
-			break;				
-		}		
+			break;
+		}
 		return result;
+		
 	}
 }
