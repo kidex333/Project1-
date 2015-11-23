@@ -1,0 +1,39 @@
+PSEUDOCODE
+
+
+Entry Point
+
+Begin main()
+	
+	numberOfRows <- readValue("How many rows are there in the plane?", Whole_Number)
+	seats <- 
+	priceOfTicket <- readValue("How much does the one-way ticket costs?", Real_Number)
+	stop <- false
+	do
+		printSArray(("What do you want to do?", "1: Buy tickets", "2: Check", 3: Cancel tickets", "4: Exit the program"))
+		action <- readValue("", Whole_Number)
+		DO NOT ASSUME THAT OBJECTS ARE PASSED BY REFERENCE
+		switch (action)
+			value 1:
+				buyTicket(seats, priceOfTicket)
+			value 2:
+				
+			value 3:
+				cancelSeat(seats)
+			value 4:
+				IF(askConfirmation("Are you sure you want to exit the program?") = true) then
+					stop = true
+		End_switch
+	while (NOT stop)
+End main()
+
+Begin printArray(inSeats)
+	Write("This is the layout of the plane." & "\n")
+	for (i = 0) while (i < inSeats.dimension0)
+		for (j = 0) while (j < inSeats.dimension1)
+			
+			
+			j <- j + 1
+		End_for
+		i <- i + 1
+	End_for
