@@ -1,0 +1,190 @@
+PSEUDOCODE
+
+
+Entry Point
+
+Begin main()
+	
+	numberOfRows <- readValue("How many rows are there in the plane?", Whole_Number)
+	priceOfTicket <- readValue("How much does the one-way ticket costs?", Real_Number)
+	stop <- false
+	seats <- null
+	Do
+		printSArray(("What do you want to do?", "1: Buy tickets", "2: Check", 3: Cancel tickets", "4: Exit the program"))
+		action <- readValue("", Whole_Number)
+		Switch (action)
+			value 1:
+				seats <- buyTicket(seats, priceOfTicket)
+			value 2:
+				
+			value 3:
+				seats <- cancelSeat(seats)
+			value 4:
+				If(askConfirmation("Are you sure you want to exit the program?") = true) Then
+					stop <- true
+				End_If
+		End_Switch
+	While (NOT stop)
+End main()
+
+Begin printArray(inSeats)
+	Write("This is the layout of the plane." & "\n")
+	For (i <- 0) while (i < inSeats.dimension0)
+		For (j <- 0) while (j < inSeats.dimension1)
+			If inSeats(i)(j) = true Then
+				Write ("X")			
+			Else
+				foo <- IntegerToChar(j+65)
+				Write (i+1 & foo & " ")		
+			End_If
+			j <- j + 1
+		End_For
+		Write NewLine
+		i <- i + 1
+	End_For
+	Write NewLine
+End_printArray
+
+Begin askSeat(inNumberOfRows)
+	error <- false
+	row <- 0
+	column <- 0
+	Do
+		digits <- ""
+		letters <- ""
+		seat <- ToUpperCase(readValue("Insert the number of the seat (1 - " & inNumberOfRows & ") (A - D):", Sentence))
+		cseat <- ToCharacterArray(seat)
+		For i <- 0 while i < Length(cseat)
+			If (cseat(i) > 47) AND (cseat(i) < 58) Then
+				digits <- digits & cseat(i)
+				error <- false
+			Else
+				If (cseat(i) > 65) AND (cseat(i) < 69)
+					letters <- letters & toString(cseat(i))
+					error <- false
+				Else
+					error <- true
+					EXIT_IF
+				End_If
+			End_If
+			
+			If error = true
+				Write ("The seat entered is not valid")
+			Else
+				row <- ToWholeNumber(digits) - 1
+				column <- ToASCII(CharacterPosition(0)InSentence(letters) - 65)
+			i <- i + 1
+	While (error = true)
+	return (row,column)
+End_askSeat
+
+Begin cancelSeat(inSeats)
+	If countArray(inSeats, true) = 0 Then
+		Write ("All the seats are empty")
+	Else
+		printArray (inSeats)
+		Write ("Which seat do you want to cancel?" & NEWLINE)
+		seat = askSeat(Length(inSeats))
+		If NOT (inSeats(seat(0), seat(1))) = true Then
+			Write("Error, that seat is empty.")
+		Else
+			If askConfirmation("Are you sure you want to cancel that seat?") = true Then
+				inSeats(seat(0), seat(1)) = false;
+				Write ("Seat cancelled succesfully")
+			End_If
+		End_If
+	End_If
+	cancelSeat <- inSeats
+End_cancelSeat
+
+Begin buyTicket(inSeats, inPriceOfTicket)
+	If countArray(inSeats, false) = 0 Then
+		Write ("All the seats are busy.")
+	Else
+		finalPrice <- 0
+		tickets <- 0
+		numberOfSeats <- countArray(inSeats,false)
+		Do
+			tickets <- readValue("How many tickets do you want to buy?", Whole_Number)
+			If (tickets > 10) OR (tickets < 0) OR (tickets > numberOfSeats) Then
+				Write ("The number of tickets entered is not valid.")
+			Else
+				If tickets > 5 Then
+					discount <- true
+				Else
+					discount <- false
+					count <- tickets
+					While (count > 0)
+						Write ("Ticket " & (tickets - count + 1)
+						printArray (inSeats)
+						seat <- askSeat(Length(inSeats))
+						If inSeats(seat(0), seat(1)) = true Then
+							Write ("Sorry, that seat is already bought.")
+						Else
+							If askConfirmation("Do you want to buy a return ticket?") = true Then
+								price <- inPriceOfTicket * 1.5
+							Else
+								price <- inPriceOfTicket
+							End_If
+						End_If
+						If askConfirmation("Will you carry any luggage?") = true Then
+							luggage <- readValue("How many will you carry?", Whole_Number)
+						End_If
+						finalPrice <- finalPrice + price + luggage * 15
+						inSeats(seat(0), seat(1)) = true
+						count <- count - 1			
+				End_While
+			End_If
+		While ((tickets > 10) OR (tickets < 0) OR (tickets > numberOfSeats))
+	End_If
+	buyTicket <- inSeats
+End_buyTicket
+
+Begin checkSeats(inSeats)
+	foo = askSeat(Length(inSeats)
+	If inSeats(foo(0) foo(1)) = true
+		Write ("That seat is busy")
+	Else
+		Write ("That seat is empty")
+	End_If
+End_checkSeats
+
+Begin printSArray(text)
+	For i <- 0 while i < Length(text)
+		Write text(i)
+		i <- i + 1
+	End_For
+End_printSArray
+
+Begin askConfirmation(prompt)
+	confirmation <- ToLowerCase(readValue(prompt, Sentence))
+	If (confirmation) = "yes" OR (confirmation) = "y" Then
+		return true
+	Else
+		return false
+	End_If
+End_askConfirmation
+
+Begin countArray(inSeats, flag)
+	For i <- 0 while i < dimension0(inSeats)
+		For j <- 0 while j < dimension1(inSeats)
+			If inSeats(i, j) = flag Then
+				count <- count + 10
+			End_If
+			j <- j + 10
+		End_For
+		i <- i + 1
+	End_For
+End_countArray
+
+Begin readValue(prompt, type)
+	Write prompt	
+	Switch type
+		value Whole_Number:
+			result <- readWhole
+		value Real_Number:
+			result <- readReal
+		value Sentence:
+			result <- readSentence
+	End_Switch
+End_readValue

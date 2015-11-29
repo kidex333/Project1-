@@ -1,6 +1,8 @@
 import java.util.Scanner;
-
-public class MainClass {
+/**
+ * @author Córdoba Romero, Javier and García Castellanos, Javier
+ */
+public class Plane {
 	/**
 	 * An enum to select between data types
 	 */
@@ -9,22 +11,21 @@ public class MainClass {
 		INTEGER, DOUBLE, STRING;
 	}
 	public static void main(String[] args) {
-		int numberOfRows = (Integer) readValue("How many rows are there in the plane?", Types.INTEGER);
+		int numberOfRows = Math.abs((Integer) readValue("How many rows are there in the plane?", Types.INTEGER));
 		boolean[][] seats = new boolean[numberOfRows][4];
-		double priceOfTicket = (Double) readValue("How much does the one-way ticket costs?", Types.DOUBLE);
+		double priceOfTicket = Math.abs((Double) readValue("How much does the one-way ticket costs?", Types.DOUBLE));
 		boolean stop = false;
 		do
 		{
-			printSArray(new String[] {"What do you want to do?", "1: Buy tickets", "2: Check",
+			printSArray(new String[] {"What do you want to do?", "1: Buy tickets", "2: Check tickets",
 					"3: Cancel tickets", "4: Exit the program"});			
 			int action = (Integer) readValue("", Types.INTEGER);
 			switch (action){
 				case 1: 
 					buyTicket(seats, priceOfTicket);
 					break;
-				case 2: 
-					int[] foo = askSeat(numberOfRows);	
-					checkSeats(foo[0],foo[1],seats);
+				case 2:					
+					checkSeats(seats);
 					break;
 				case 3: 
 					cancelSeat(seats);
@@ -67,7 +68,7 @@ public class MainClass {
 	 * @return The array containing the row and the column of the seat.
 	 */
 	static int[] askSeat(int inNumberOfRows)
-	{			
+	{
 		boolean error = false;
 		int row = 0, column = 0;
 		do
@@ -130,8 +131,11 @@ public class MainClass {
 			else
 			{
 				if (askConfirmation("Are you sure you want to cancel that seat?"))
+				{
 					inSeats[seat[0]][seat[1]] = false;
-				System.out.println("Seat cancelled succesfully.");
+					System.out.println("Seat cancelled succesfully.");
+				}
+				
 			}
 		}
 	}
@@ -176,7 +180,7 @@ public class MainClass {
 							double price = askConfirmation("Do you want to buy a return ticket?") ? inPriceOfTicket*1.5 : inPriceOfTicket;
 							int luggage = 0;
 							if (askConfirmation("Will you carry any luggage?"))
-								luggage = (Integer) readValue("How many will you carry?", Types.INTEGER);
+								luggage = Math.abs((Integer) readValue("How many will you carry?", Types.INTEGER));
 							finalprice += price + (luggage*15);
 							inSeats[seat[0]][seat[1]] = true;
 							count--;
@@ -195,9 +199,10 @@ public class MainClass {
 	 * @param column The column of the seat.
 	 * @param inSeats The array containing the seats busy.
 	 */
-	static void checkSeats(int row, int column, boolean[][] inSeats)
+	static void checkSeats(boolean[][] inSeats)
 	{
-		if (inSeats[row][column])
+		int[] foo = askSeat(inSeats.length);
+		if (inSeats[foo[0]][foo[1]])
 		{
 			System.out.println("That seat is busy");
 		}
@@ -251,7 +256,7 @@ public class MainClass {
 	 * @param type The type of data to be readed.
 	 * @return The object containing the data readed.
 	 */
-	public static Object readValue(String prompt, MainClass.Types type)
+	public static Object readValue(String prompt, Types type)
 	{
 		Object result = null;
 		Scanner read = new Scanner(System.in);
